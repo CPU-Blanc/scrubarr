@@ -1,0 +1,10 @@
+[package]
+name = "scrubarr"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+log = { workspace = true }
+log4rs = "1.3.0"
+sonarr_api = { workspace = true }
+tokio = { version = "1.41.1", features = ["full"] }
