@@ -242,10 +242,10 @@ impl GetQueueQuery {
 
 #[derive(Iterable, Default)]
 pub struct DeleteQueueQuery {
-    remove_from_client: Option<bool>,
-    blocklist: Option<bool>,
-    skip_redownload: Option<bool>,
-    change_category: Option<bool>
+    remove_from_client: Option<Box<str>>,
+    blocklist: Option<Box<str>>,
+    skip_redownload: Option<Box<str>>,
+    change_category: Option<Box<str>>
 }
 
 impl DeleteQueueQuery {
@@ -253,19 +253,19 @@ impl DeleteQueueQuery {
         DeleteQueueQuery::default()
     }
     pub fn remove_from_client(mut self, flag: bool) -> Self {
-        self.remove_from_client = Some(flag);
+        self.remove_from_client = Some(Box::from(flag.to_string()));
         self
     }
     pub fn blocklist(mut self, flag: bool) -> Self {
-        self.blocklist = Some(flag);
+        self.blocklist = Some(Box::from(flag.to_string()));
         self
     }
     pub fn skip_redownload(mut self, flag: bool) -> Self {
-        self.skip_redownload = Some(flag);
+        self.skip_redownload = Some(Box::from(flag.to_string()));
         self
     }
     pub fn change_category(mut self, flag: bool) -> Self {
-        self.change_category = Some(flag);
+        self.change_category = Some(Box::from(flag.to_string()));
         self
     }
 }

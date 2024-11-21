@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::{
     build_query_string,
     error::SonarrResult,
@@ -36,10 +37,13 @@ impl Sonarr {
     pub async fn queue_delete_bulk(&self, ids: &[i32], query: DeleteQueueQuery) -> SonarrResult<()> {
         let mut url = self.build_url("/api/v3/queue/bulk")?;
         url.set_query(build_query_string(query).as_deref());
+
+        let mut json = HashMap::with_capacity(1);
+        json.insert("ids", ids);
         
         self.client
             .delete(url)
-            .json(ids)
+            .json(&json)
             .send()
             .await?
             .error_for_status()?;

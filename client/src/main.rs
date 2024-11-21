@@ -51,7 +51,7 @@ async fn main() {
         warn!("unknown log level '{log_level_str}' specified");
     };
 
-    info!("starting...");
+    info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
 
     let port = if env::var("SCRUBARR_OMIT_PORT").unwrap_or(String::from("false")).parse::<bool>().expect("error parsing omit as bool") {
         debug!("SCRUBARR_OMIT_PORT set - skipping port field");
