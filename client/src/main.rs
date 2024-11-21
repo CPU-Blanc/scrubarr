@@ -1,4 +1,5 @@
 use std::{env, time::{Duration, Instant}};
+use std::collections::HashSet;
 use tokio::time::sleep;
 use sonarr_api::{
     queue::{
@@ -138,16 +139,17 @@ async fn get_queue(client: &Sonarr) -> Box<[QueueResource]> {
     }
 }
 
-async fn process_queue(client: &Sonarr) -> (Vec<Option<i32>>, Vec<i32>){
-    let mut tbas = Vec::new();
+async fn process_queue(client: &Sonarr) -> (HashSet<Option<i32>>, Vec<i32>){
+    let mut tbas = HashSet::new();
     let mut replaced = Vec::new();
-    
+
     'item: for item in get_queue(client).await {
         for statuses in item.status_messages {
             for message in statuses.messages {
                 if message.contains("Episode has a TBA title and recently aired") {
-                    debug!("found TBA in series [{id}] '{name}'", id = item.series_id.unwrap_or(0), name = item.series.unwrap().title.unwrap_or(Box::from("")));
-                    tbas.push(item.series_id);
+                    if tbas.insert(item.series_id) {
+                        debug!("found TBA in series [{id}] '{name}'", id = item.series_id.unwrap_or(0), name = item.series.unwrap().title.unwrap_or(Box::from("")));
+                    };
                     continue 'item;
                 }
                 if message.contains("Not a Custom Format upgrade for existing episode file(s)") {
