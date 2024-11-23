@@ -1,3 +1,5 @@
+mod config;
+
 use std::{env, time::{Duration, Instant}};
 use std::collections::HashSet;
 use tokio::time::sleep;
@@ -11,7 +13,7 @@ use sonarr_api::{
     Sonarr
 };
 
-use log::{LevelFilter, info, debug, trace, error, warn};
+use log::{LevelFilter, info, debug, trace, error};
 use log4rs::{
     append::{console::ConsoleAppender},
     encode::pattern::PatternEncoder,
@@ -21,19 +23,7 @@ use log4rs::{
 
 #[tokio::main]
 async fn main() {
-    let mut unknown_log = false;
-    let log_level_str = env::var("SCRUBARR_LOG_LEVEL").unwrap_or(String::from("info"));
-    let log_level = match log_level_str.as_str() {
-        "trace" => LevelFilter::Trace,
-        "debug" => LevelFilter::Debug,
-        "info" => LevelFilter::Info,
-        "warn" => LevelFilter::Warn,
-        "error" => LevelFilter::Error,
-        _ => {
-            unknown_log = true;
-            LevelFilter::Info
-        }
-    };
+    let args = config::Args::from_args_and_env();
 
     let encoder = PatternEncoder::new("{h({d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {D({f}:{L} - )}{m}{n})}");
     let stdout = ConsoleAppender::builder().encoder(Box::new(encoder)).build();
@@ -43,46 +33,28 @@ async fn main() {
                 .filter(Box::new(ThresholdFilter::new(LevelFilter::Trace)))
                 .build("stdout", Box::new(stdout))
         )
-        .build(Root::builder().appender("stdout").build(log_level))
+        .build(Root::builder().appender("stdout").build(LevelFilter::from(args.log_level)))
         .expect("error building logger");
     let _ = log4rs::init_config(config).expect("error building logger");
 
-    if unknown_log {
-        warn!("unknown log level '{log_level_str}' specified");
-    };
-
     info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
 
-    let port = if env::var("SCRUBARR_OMIT_PORT").unwrap_or(String::from("false")).parse::<bool>().expect("error parsing omit as bool") {
-        debug!("SCRUBARR_OMIT_PORT set - skipping port field");
+    let port = if args.omit_port {
+        debug!("omit port set - skipping port field");
         None
     } else {
-        match env::var("SCRUBARR_SONARR_PORT") {
-            Err(_) => {
-                debug!("SCRUBARR_SONARR_PORT var missing - using default sonarr port: 8989");
-                Some(8989)
-            },
-            Ok(input) => {
-                let x = Some(input.parse::<u16>().expect("error parsing port as int"));
-                trace!("mapping to port {}", input);
-                x
-            }
-        }
+        trace!("mapping to port {}", args.port);
+        Some(args.port)
     };
 
     let sonarr = sonarr_api::new(
-        &env::var("SCRUBARR_SONARR_KEY").expect("no API key provided"),
-        &env::var("SCRUBARR_SONARR_URL").unwrap_or(String::from("http://localhost")),
-        env::var("SCRUBARR_SONARR_BASE_URL").ok().as_deref(),
+        &args.api_key,
+        args.url.as_ref(),
+        args.base_path.as_deref(),
         port
     ).expect("error creating Sonarr client");
 
-    let config_interval = Duration::from_secs(
-        env::var("SCRUBARR_INTERVAL")
-            .unwrap_or(String::from("600"))
-            .parse()
-            .expect("error parsing INTERVAL as int")
-    );
+    let config_interval = Duration::from_secs(args.interval);
 
     let mut start_time;
 

@@ -11,3 +11,4 @@ resolver = "2"
 log = "0.4.22"
 sonarr_api = {path = "sonarr_api" }
 tokio = { version = "1.41.1", features = ["full"] }
+url = "2.5.4"
