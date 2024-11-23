@@ -24,7 +24,9 @@ pub struct Sonarr {
 
 pub fn new(api_key: &str, url: &str, base_path: Option<&str>, port: Option<u16>) -> SonarrResult<Sonarr> {
     let mut headers = HeaderMap::new();
-    headers.insert("X-Api-Key", HeaderValue::from_str(api_key)?);
+    let mut header_vale = HeaderValue::from_str(api_key)?;
+    header_vale.set_sensitive(true);
+    headers.insert("X-Api-Key", header_vale);
     let client = Client::builder().default_headers(headers).build()?;
 
     Ok (

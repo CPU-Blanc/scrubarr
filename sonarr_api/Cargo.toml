@@ -1,6 +1,6 @@
 [package]
 name = "sonarr_api"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 
 [dependencies]
@@ -11,4 +11,4 @@ serde = { version = "1.0.215", features = ["derive"] }
 struct_iterable = "0.1.1"
 thiserror = "2.0.3"
 tokio = {workspace = true}
-url = "2.5.3"
+url = { workspace = true }

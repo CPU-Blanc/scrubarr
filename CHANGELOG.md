@@ -9,6 +9,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 -->
 
 ## [Unreleased]
+### Security
+- Marked API key header as sensitive
 
 ## [0.1.2] - 2024-11-22
 ### Fixed
