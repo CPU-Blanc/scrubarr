@@ -27,7 +27,7 @@ pub(super) struct Args {
     pub(super) url: Url,
 
     /// Sonarr URL base
-    #[arg(short, long, env="SCRUBARR_BASE_PATH")]
+    #[arg(short, long, env="SCRUBARR_SONARR_BASE_PATH")]
     pub(super) base_path: Option<String>,
 
     /// Queue scan interval (in seconds)

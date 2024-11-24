@@ -10,6 +10,10 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.2.1] - 2024-11-24
+### Fixed
+- `SCRUBARR_SONARR_BASE_PATH` env variable not working
+
 ## [0.2.0] - 2024-11-23
 ### Breaking
 - `SCRUBARR_SONARR_BASE_URL` environmental variable renamed to `SCRUBARR_SONARR_BASE_PATH`
@@ -33,7 +37,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/CPU-Blanc/scrubarr/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.1.0...v0.1.1
