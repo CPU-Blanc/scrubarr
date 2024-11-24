@@ -46,7 +46,7 @@ async fn main() {
     let sonarr = sonarr_api::new(&args.api_key, args.url.as_ref(), args.base_path.as_deref())
         .expect("error creating Sonarr client");
 
-    let config_interval = Duration::from_secs(args.interval);
+    let config_interval = Duration::from_secs(std::cmp::max(args.interval, 300));
 
     let mut start_time;
 
