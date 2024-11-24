@@ -11,7 +11,7 @@ use std::{
 };
 use tokio::time::sleep;
 
-use log::{debug, error, info, trace, LevelFilter};
+use log::{debug, error, info, trace, warn, LevelFilter};
 use log4rs::{
     append::console::ConsoleAppender,
     config::{Appender, Config, Root},
@@ -21,7 +21,7 @@ use log4rs::{
 
 #[tokio::main]
 async fn main() {
-    let args = config::Args::from_args_and_env();
+    let mut args = config::Args::from_args_and_env();
 
     let encoder = PatternEncoder::new("{h({d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {D({f}:{L} - )}{m}{n})}");
     let stdout = ConsoleAppender::builder()
@@ -43,7 +43,22 @@ async fn main() {
 
     info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
 
-    let sonarr = sonarr_api::new(&args.api_key, args.url.as_ref(), args.base_path.as_deref())
+    //TODO: Deprecate port
+    let sonarr_url = if let Some(port) = args.port {
+        warn!("SCRUBARR_SONARR_PORT is deprecated and will be removed soon. Include the port in SCRUBARR_SONARR_URL");
+        args.url
+            .set_port(Some(port))
+            .expect("failed to map port to url");
+        args.url.to_string()
+    } else {
+        args.url.to_string()
+    };
+
+    if args.omit_port.is_some() {
+        warn!("SCRUBARR_OMIT_PORT is deprecated and will be removed soon")
+    };
+
+    let sonarr = sonarr_api::new(&args.api_key, &sonarr_url, args.base_path.as_deref())
         .expect("error creating Sonarr client");
 
     let config_interval = Duration::from_secs(std::cmp::max(args.interval, 300));
