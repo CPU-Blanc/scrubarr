@@ -9,6 +9,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 -->
 
 ## [Unreleased]
+### Deprecated
+- `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options - Port is now parsed as part of the `SCRUBARR_SONARR_URL` variable
 
 ## [0.2.1] - 2024-11-24
 ### Fixed

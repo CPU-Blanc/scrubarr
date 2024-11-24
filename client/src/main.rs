@@ -43,21 +43,8 @@ async fn main() {
 
     info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
 
-    let port = if args.omit_port {
-        debug!("omit port set - skipping port field");
-        None
-    } else {
-        trace!("mapping to port {}", args.port);
-        Some(args.port)
-    };
-
-    let sonarr = sonarr_api::new(
-        &args.api_key,
-        args.url.as_ref(),
-        args.base_path.as_deref(),
-        port,
-    )
-    .expect("error creating Sonarr client");
+    let sonarr = sonarr_api::new(&args.api_key, args.url.as_ref(), args.base_path.as_deref())
+        .expect("error creating Sonarr client");
 
     let config_interval = Duration::from_secs(args.interval);
 

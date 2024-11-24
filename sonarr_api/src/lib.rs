@@ -22,15 +22,9 @@ pub struct Sonarr {
     base_path: Box<str>,
     client: Client,
     host: Box<str>,
-    port: Option<u16>,
 }
 
-pub fn new(
-    api_key: &str,
-    url: &str,
-    base_path: Option<&str>,
-    port: Option<u16>,
-) -> SonarrResult<Sonarr> {
+pub fn new(api_key: &str, url: &str, base_path: Option<&str>) -> SonarrResult<Sonarr> {
     let mut headers = HeaderMap::new();
     let mut header_vale = HeaderValue::from_str(api_key)?;
     header_vale.set_sensitive(true);
@@ -41,7 +35,6 @@ pub fn new(
         base_path: Box::from(base_path.unwrap_or_default()),
         client,
         host: Box::from(url),
-        port,
     })
 }
 
@@ -49,7 +42,6 @@ impl Sonarr {
     fn build_url(&self, path: &str) -> SonarrResult<Url> {
         let mut url = Url::parse(&self.host)?;
         url.set_path(&format!("{}{path}", &self.base_path));
-        let _ = url.set_port(self.port);
         Ok(url)
     }
 }

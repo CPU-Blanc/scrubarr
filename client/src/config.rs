@@ -14,14 +14,6 @@ pub(super) struct Args {
     #[arg(value_enum, short, long, env="SCRUBARR_LOG_LEVEL", default_value_t=Level::Info)]
     pub(super) log_level: Level,
 
-    /// Sonarr port
-    #[arg(short, long, env = "SCRUBARR_SONARR_PORT", default_value_t = 8989)]
-    pub(super) port: u16,
-
-    /// Whether to omit the port from the url
-    #[arg(long, env = "SCRUBARR_OMIT_PORT", default_value_t = false)]
-    pub(super) omit_port: bool,
-
     /// Sonarr URL
     #[arg(
         short,
