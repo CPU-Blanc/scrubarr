@@ -19,7 +19,7 @@ pub(super) struct Args {
         short,
         long,
         env = "SCRUBARR_SONARR_URL",
-        default_value = "http://localhost"
+        default_value = "http://localhost:8989"
     )]
     pub(super) url: Url,
 
