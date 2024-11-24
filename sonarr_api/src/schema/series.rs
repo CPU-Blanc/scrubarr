@@ -42,5 +42,5 @@ pub struct SeriesResource {
     // add_options: AddSeriesOptions,   //TODO
     // ratings: Ratings,    //TODO
     // statistics: SeriesStatisticsResource,    //TODO
-    pub episodes_changed: Option<bool>
+    pub episodes_changed: Option<bool>,
 }

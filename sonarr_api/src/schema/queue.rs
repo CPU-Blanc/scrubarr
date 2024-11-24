@@ -1,14 +1,14 @@
+use crate::schema::series::SeriesResource;
+use serde::Deserialize;
 use std::fmt::{Display, Formatter};
 use struct_iterable::Iterable;
-use serde::Deserialize;
-use crate::schema::series::SeriesResource;
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub enum SortDirection {
     Default,
     Ascending,
-    Descending
+    Descending,
 }
 
 impl Display for SortDirection {
@@ -16,7 +16,7 @@ impl Display for SortDirection {
         match self {
             SortDirection::Ascending => write!(f, "ascending"),
             SortDirection::Descending => write!(f, "descending"),
-            SortDirection::Default => write!(f, "default")
+            SortDirection::Default => write!(f, "default"),
         }
     }
 }
@@ -26,7 +26,7 @@ impl Display for SortDirection {
 pub enum DownloadProtocol {
     Unknown,
     Usenet,
-    Torrent
+    Torrent,
 }
 
 impl Display for DownloadProtocol {
@@ -34,7 +34,7 @@ impl Display for DownloadProtocol {
         match self {
             DownloadProtocol::Torrent => write!(f, "torrent"),
             DownloadProtocol::Usenet => write!(f, "usenet"),
-            DownloadProtocol::Unknown => write!(f, "unknown")
+            DownloadProtocol::Unknown => write!(f, "unknown"),
         }
     }
 }
@@ -51,7 +51,7 @@ pub enum QueueStatus {
     Warning,
     Delay,
     DownloadClientUnavailable,
-    Fallback
+    Fallback,
 }
 
 impl Display for QueueStatus {
@@ -66,7 +66,7 @@ impl Display for QueueStatus {
             QueueStatus::Warning => write!(f, "warning"),
             QueueStatus::Delay => write!(f, "delay"),
             QueueStatus::DownloadClientUnavailable => write!(f, "downloadClientUnavailable"),
-            QueueStatus::Fallback => write!(f, "fallback")
+            QueueStatus::Fallback => write!(f, "fallback"),
         }
     }
 }
@@ -76,7 +76,7 @@ impl Display for QueueStatus {
 pub enum TrackedDownloadStatus {
     Ok,
     Warning,
-    Error
+    Error,
 }
 
 #[derive(Deserialize, Debug)]
@@ -89,7 +89,7 @@ pub enum TrackedDownloadState {
     Imported,
     FailedPending,
     Failed,
-    Ignored
+    Ignored,
 }
 #[derive(Iterable, Default)]
 pub struct GetQueueQuery {
@@ -104,8 +104,7 @@ pub struct GetQueueQuery {
     protocol: Option<Box<str>>,
     languages: Option<Box<str>>,
     quality: Option<Box<str>>,
-    status: Option<Box<str>>
-
+    status: Option<Box<str>>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -116,7 +115,7 @@ pub struct QueueResourcePagingResource {
     pub sort_key: Box<str>,
     pub sort_direction: SortDirection,
     pub total_records: i32,
-    pub records: Box<[QueueResource]>
+    pub records: Box<[QueueResource]>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -134,9 +133,11 @@ pub struct QueueResource {
     pub custom_format_score: i32,
     pub size: usize,
     pub title: Option<Box<str>>,
-    #[serde(rename = "sizeleft")]   //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    #[serde(rename = "sizeleft")]
     pub size_left: usize,
-    #[serde(rename = "timeleft")]   //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    #[serde(rename = "timeleft")]
     pub time_left: Option<Box<str>>,
     pub estimated_completion_time: Option<Box<str>>,
     pub added: Option<Box<str>>,
@@ -158,14 +159,14 @@ pub struct QueueResource {
 #[serde(rename_all = "camelCase")]
 pub struct TrackedDownloadStatusMessage {
     pub title: Option<Box<str>>,
-    pub messages: Box<[Box<str>]>
+    pub messages: Box<[Box<str>]>,
 }
 
 impl GetQueueQuery {
     pub fn builder() -> Self {
         Self::default()
     }
-    
+
     pub fn page(mut self, page: i32) -> Self {
         self.page = Some(Box::from(page.to_string()));
         self
@@ -195,15 +196,12 @@ impl GetQueueQuery {
         self
     }
     pub fn series_ids(mut self, ids: &[i32]) -> Self {
-        self.series_ids = Some(
-            Box::from(
-                ids
-                    .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<String>>()
-                    .join(",")
-            )
-        );
+        self.series_ids = Some(Box::from(
+            ids.iter()
+                .map(ToString::to_string)
+                .collect::<Vec<String>>()
+                .join(","),
+        ));
         self
     }
     pub fn protocol(mut self, protocol: DownloadProtocol) -> Self {
@@ -211,27 +209,23 @@ impl GetQueueQuery {
         self
     }
     pub fn languages(mut self, languages: &[i32]) -> Self {
-        self.languages = Some(
-            Box::from(
-                languages
-                    .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<String>>()
-                    .join(",")
-            )
-        );
+        self.languages = Some(Box::from(
+            languages
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<String>>()
+                .join(","),
+        ));
         self
     }
     pub fn quality(mut self, quality: &[i32]) -> Self {
-        self.quality = Some(
-            Box::from(
-                quality
-                    .iter()
-                    .map(ToString::to_string)
-                    .collect::<Vec<String>>()
-                    .join(",")
-            )
-        );
+        self.quality = Some(Box::from(
+            quality
+                .iter()
+                .map(ToString::to_string)
+                .collect::<Vec<String>>()
+                .join(","),
+        ));
         self
     }
     pub fn status(mut self, status: QueueStatus) -> Self {
@@ -245,7 +239,7 @@ pub struct DeleteQueueQuery {
     remove_from_client: Option<Box<str>>,
     blocklist: Option<Box<str>>,
     skip_redownload: Option<Box<str>>,
-    change_category: Option<Box<str>>
+    change_category: Option<Box<str>>,
 }
 
 impl DeleteQueueQuery {

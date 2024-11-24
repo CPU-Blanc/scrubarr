@@ -15,24 +15,29 @@ pub(super) struct Args {
     pub(super) log_level: Level,
 
     /// Sonarr port
-    #[arg(short, long, env="SCRUBARR_SONARR_PORT", default_value_t = 8989)]
-    pub(super) port:u16,
+    #[arg(short, long, env = "SCRUBARR_SONARR_PORT", default_value_t = 8989)]
+    pub(super) port: u16,
 
     /// Whether to omit the port from the url
-    #[arg(long, env="SCRUBARR_OMIT_PORT", default_value_t = false)]
+    #[arg(long, env = "SCRUBARR_OMIT_PORT", default_value_t = false)]
     pub(super) omit_port: bool,
 
     /// Sonarr URL
-    #[arg(short, long, env="SCRUBARR_SONARR_URL", default_value = "http://localhost")]
+    #[arg(
+        short,
+        long,
+        env = "SCRUBARR_SONARR_URL",
+        default_value = "http://localhost"
+    )]
     pub(super) url: Url,
 
     /// Sonarr URL base
-    #[arg(short, long, env="SCRUBARR_SONARR_BASE_PATH")]
+    #[arg(short, long, env = "SCRUBARR_SONARR_BASE_PATH")]
     pub(super) base_path: Option<String>,
 
     /// Queue scan interval (in seconds)
-    #[arg(short, long, env="SCRUBARR_INTERVAL", default_value_t = 600)]
-    pub(super) interval: u64
+    #[arg(short, long, env = "SCRUBARR_INTERVAL", default_value_t = 600)]
+    pub(super) interval: u64,
 }
 
 #[derive(ValueEnum, Clone, Debug)]
@@ -41,7 +46,7 @@ pub(super) enum Level {
     Debug,
     Info,
     Warn,
-    Error
+    Error,
 }
 
 impl From<Level> for LevelFilter {
@@ -51,7 +56,7 @@ impl From<Level> for LevelFilter {
             Level::Debug => LevelFilter::Debug,
             Level::Info => LevelFilter::Info,
             Level::Warn => LevelFilter::Warn,
-            Level::Error => LevelFilter::Error
+            Level::Error => LevelFilter::Error,
         }
     }
 }

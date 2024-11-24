@@ -8,5 +8,5 @@ pub enum SonarrError {
     #[error("url parsing failed: {0}")]
     ParseError(#[from] url::ParseError),
     #[error("invalid header value: {0}")]
-    InvalidHeader(#[from] reqwest::header::InvalidHeaderValue)
+    InvalidHeader(#[from] reqwest::header::InvalidHeaderValue),
 }
