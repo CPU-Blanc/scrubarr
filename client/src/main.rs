@@ -108,7 +108,7 @@ async fn main() {
 
 async fn get_queue(client: &Sonarr) -> Box<[QueueResource]> {
     let query = GetQueueQuery::builder()
-        .page_size(30)
+        .page_size(1000)
         .include_series(true)
         .status(QueueStatus::Warning);
 
