@@ -19,6 +19,8 @@ pub struct SeriesResource {
     pub remote_poster: Option<Box<str>>,
     // seasons: Box<[SeasonResource]>,  //TODO
     pub year: i32,
+    pub path: Option<Box<str>>,
+    pub quality_profile_id: i32,
     pub season_folder: bool,
     pub monitored: bool,
     // monitor_new_items: NewItemMonitorTypes,  //TODO
@@ -27,6 +29,7 @@ pub struct SeriesResource {
     pub tvdb_id: i32,
     pub tv_rage_id: i32,
     pub tv_maze_id: i32,
+    pub tmdb_id: i32,
     pub first_aired: Option<Box<str>>,
     pub last_aired: Option<Box<str>>,
     // series_type: SeriesTypes,    //TODO
@@ -36,8 +39,8 @@ pub struct SeriesResource {
     pub root_folder_path: Option<Box<str>>,
     pub folder: Option<Box<str>>,
     pub certification: Option<Box<str>>,
-    pub genres: Box<[Box<str>]>,
-    pub tags: Box<[i32]>,
+    pub genres: Option<Box<[Box<str>]>>,
+    pub tags: Option<Box<[i32]>>,
     pub added: Box<str>,
     // add_options: AddSeriesOptions,   //TODO
     // ratings: Ratings,    //TODO

@@ -117,7 +117,7 @@ async fn get_queue(client: &Sonarr) -> Box<[QueueResource]> {
             error!("error fetching sonarr queue - {e}");
             Box::new([])
         }
-        Ok(resource) => resource.records,
+        Ok(resource) => resource.records.unwrap_or_default(),
     }
 }
 
@@ -126,14 +126,14 @@ async fn process_queue(client: &Sonarr) -> (HashSet<Option<i32>>, Vec<i32>) {
     let mut replaced = Vec::new();
 
     'item: for item in get_queue(client).await {
-        for statuses in item.status_messages {
+        for statuses in item.status_messages.unwrap_or_default() {
             for message in statuses.messages {
                 if message.contains("Episode has a TBA title and recently aired") {
                     if tbas.insert(item.series_id) {
                         debug!(
                             "found TBA in series [{id}] '{name}'",
-                            id = item.series_id.unwrap_or(0),
-                            name = item.series.unwrap().title.unwrap_or(Box::from(""))
+                            id = item.series_id.unwrap_or_default(),
+                            name = item.series.unwrap().title.unwrap_or_default()
                         );
                     };
                     continue 'item;

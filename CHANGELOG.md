@@ -18,6 +18,9 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 ### Changed
 - Minimum interval time is now 300 seconds
 
+### Fixed
+- Various Sonarr API schema issues - Missing optionals and incorrect types
+
 ## [0.2.1] - 2024-11-24
 ### Fixed
 - `SCRUBARR_SONARR_BASE_PATH` env variable not working

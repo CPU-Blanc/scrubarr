@@ -115,7 +115,7 @@ pub struct QueueResourcePagingResource {
     pub sort_key: Box<str>,
     pub sort_direction: SortDirection,
     pub total_records: i32,
-    pub records: Box<[QueueResource]>,
+    pub records: Option<Box<[QueueResource]>>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -131,12 +131,12 @@ pub struct QueueResource {
     // pub quality: QualityModel,   //TODO
     // pub custom_formats: Box<[CustomFormatResource]>,   //TODO
     pub custom_format_score: i32,
-    pub size: usize,
+    pub size: f64,
     pub title: Option<Box<str>>,
-    //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    //TODO: deprecated once #7395 is merged into sonarr master - use camel case
     #[serde(rename = "sizeleft")]
-    pub size_left: usize,
-    //TODO: depreciated once #7395 is merged into sonarr master - use camel case
+    pub size_left: f64,
+    //TODO: deprecated once #7395 is merged into sonarr master - use camel case
     #[serde(rename = "timeleft")]
     pub time_left: Option<Box<str>>,
     pub estimated_completion_time: Option<Box<str>>,
@@ -144,7 +144,7 @@ pub struct QueueResource {
     pub status: QueueStatus,
     pub tracked_download_status: TrackedDownloadStatus,
     pub tracked_download_state: TrackedDownloadState,
-    pub status_messages: Box<[TrackedDownloadStatusMessage]>,
+    pub status_messages: Option<Box<[TrackedDownloadStatusMessage]>>,
     pub error_message: Option<Box<str>>,
     pub download_id: Option<Box<str>>,
     pub protocol: DownloadProtocol,
