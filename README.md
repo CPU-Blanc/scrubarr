@@ -58,5 +58,6 @@ docker create \
 | `-u`, `--url`       | `SCRUBARR_SONARR_URL`       | String                                | `http://localhost:8989` |
 | `-b`, `--base-path` | `SCRUBARR_SONARR_BASE_PATH` | String                                | null                    |
 | `-i`, `--interval`  | `SCRUBARR_INTERVAL`         | Int (in seconds: minimum 300)         | `600`                   |
+| `-v`, `--verbose`   | `SCRUBARR_VERBOSE`          | Bool                                  | `false`                 |
 
 Env vars can also be loaded from a `.env` file in the working directory

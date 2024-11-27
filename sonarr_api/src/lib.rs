@@ -24,13 +24,20 @@ pub struct Sonarr {
     host: Box<str>,
 }
 
-pub fn new(api_key: &str, url: &str, base_path: Option<&str>) -> SonarrResult<Sonarr> {
+pub fn new(
+    api_key: &str,
+    url: &str,
+    base_path: Option<&str>,
+    verbose: bool,
+) -> SonarrResult<Sonarr> {
     let mut headers = HeaderMap::new();
     let mut header_vale = HeaderValue::from_str(api_key)?;
     header_vale.set_sensitive(true);
     headers.insert("X-Api-Key", header_vale);
-    let client = Client::builder().default_headers(headers).build()?;
-
+    let client = Client::builder()
+        .default_headers(headers)
+        .connection_verbose(verbose)
+        .build()?;
     Ok(Sonarr {
         base_path: Box::from(base_path.unwrap_or_default()),
         client,

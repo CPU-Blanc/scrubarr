@@ -58,8 +58,13 @@ async fn main() {
         warn!("SCRUBARR_OMIT_PORT is deprecated and will be removed soon")
     };
 
-    let sonarr = sonarr_api::new(&args.api_key, &sonarr_url, args.base_path.as_deref())
-        .expect("error creating Sonarr client");
+    let sonarr = sonarr_api::new(
+        &args.api_key,
+        &sonarr_url,
+        args.base_path.as_deref(),
+        args.verbose,
+    )
+    .expect("error creating Sonarr client");
 
     let config_interval = Duration::from_secs(std::cmp::max(args.interval, 300));
 

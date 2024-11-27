@@ -38,6 +38,10 @@ pub(super) struct Args {
     /// Queue scan interval (in seconds)
     #[arg(short, long, env = "SCRUBARR_INTERVAL", default_value_t = 600)]
     pub(super) interval: u64,
+
+    /// Enable verbose http logging
+    #[arg(short, long, env = "SCRUBARR_VERBOSE", default_value_t = false)]
+    pub(super) verbose: bool,
 }
 
 #[derive(ValueEnum, Clone, Debug)]

@@ -12,6 +12,9 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 ### Deprecated
 - `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options - Port is now parsed as part of the `SCRUBARR_SONARR_URL` variable
 
+### Added
+- `SCRUBARR_VERBOSE` env var & cli argument - Provides verbose http logs at the `trace` level
+
 ### Changed
 - Minimum interval time is now 300 seconds
 
