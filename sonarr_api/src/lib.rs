@@ -1,12 +1,16 @@
+#![allow(dead_code)]
+
 mod error;
 mod endpoints {
     mod command;
     mod queue;
 }
 mod schema {
-    mod misc;
+    pub mod episode;
+    pub mod misc;
     pub mod queue;
-    mod series;
+    pub mod season;
+    pub mod series;
 }
 
 use crate::error::SonarrResult;
@@ -15,9 +19,9 @@ use reqwest::{
     header::{HeaderMap, HeaderValue},
     Client, Url,
 };
+pub use schema::{episode, misc, queue, season, series};
 use struct_iterable::Iterable;
 
-pub use schema::queue;
 pub struct Sonarr {
     base_path: Box<str>,
     client: Client,

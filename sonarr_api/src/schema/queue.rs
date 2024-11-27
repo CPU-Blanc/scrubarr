@@ -1,3 +1,5 @@
+use super::episode::EpisodeResource;
+use super::misc::{CustomFormatResource, Language, QualityModel};
 use crate::schema::series::SeriesResource;
 use serde::Deserialize;
 use std::fmt::{Display, Formatter};
@@ -126,10 +128,10 @@ pub struct QueueResource {
     pub episode_id: Option<i32>,
     pub season_number: Option<i32>,
     pub series: Option<SeriesResource>,
-    // pub episode: Option<EpisodeResource>,    //TODO
-    // pub languages: Box<[Language]>,    //TODO
-    // pub quality: QualityModel,   //TODO
-    // pub custom_formats: Box<[CustomFormatResource]>,   //TODO
+    pub episode: Option<EpisodeResource>,
+    pub languages: Option<Box<[Language]>>,
+    pub quality: QualityModel,
+    pub custom_formats: Option<Box<[CustomFormatResource]>>,
     pub custom_format_score: i32,
     pub size: f64,
     pub title: Option<Box<str>>,
