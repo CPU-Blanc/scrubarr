@@ -110,7 +110,7 @@ async fn get_queue(client: &Sonarr) -> Box<[QueueResource]> {
     let query = GetQueueQuery::builder()
         .page_size(1000)
         .include_series(true)
-        .status(QueueStatus::Warning);
+        .status(QueueStatus::Completed);
 
     match client.get_queue(query).await {
         Err(e) => {
