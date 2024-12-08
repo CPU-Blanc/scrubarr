@@ -4,11 +4,11 @@ version = "0.2.0"
 edition = "2021"
 
 [dependencies]
-convert_case = "0.6.0"
+convert_case = "0.6"
 log = { workspace = true }
-reqwest = { version = "0.12.9", features = ["cookies","json"] }
-serde = { version = "1.0.215", features = ["derive"] }
-struct_iterable = "0.1.1"
-thiserror = "2.0.3"
+reqwest = { version = "0.12", features = ["cookies","json"] }
+serde = { workspace = true }
+struct_iterable = "0.1"
+thiserror = "2"
 tokio = {workspace = true}
 url = { workspace = true }
