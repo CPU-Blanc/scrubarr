@@ -8,4 +8,6 @@ RUN cargo install --path ./client
 FROM alpine
 RUN apk update && rm -rf /var/cache/apk/*
 COPY --from=builder /usr/local/cargo/bin/scrubarr /usr/local/bin/scrubarr
+ENV X_SCRUBARR_CONFIG="/config/settings.json"
+VOLUME /config
 CMD ["scrubarr"]
