@@ -6,6 +6,13 @@ on:
       - main
     paths:
       - client/Cargo.toml
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+    paths:
+      - client/Cargo.toml
   workflow_dispatch:
 
 env:
@@ -18,6 +25,7 @@ permissions:
 
 jobs:
   check-tag:
+    if: startsWith(github.head_ref, 'release/') || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       is-new: ${{ steps.check-new.outputs.is_new_version }}
