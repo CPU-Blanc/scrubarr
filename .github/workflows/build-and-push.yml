@@ -9,6 +9,7 @@ on:
   pull_request:
     types:
       - opened
+      - reopened
     branches:
       - main
     paths:
@@ -62,7 +63,6 @@ jobs:
       - name: create release
         uses: taiki-e/create-gh-release-action@v1
         with:
-          branch: main
           ref: refs/tags/${{ needs.check-tag.outputs.new-tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
           changelog: CHANGELOG.md
