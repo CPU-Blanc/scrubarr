@@ -5,6 +5,7 @@ use dotenv::dotenv;
 use is_empty::IsEmpty;
 use log::{error, warn, LevelFilter};
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::{env, fs, path::PathBuf};
 use url::Url;
 use zeroize::Zeroizing;
@@ -60,13 +61,18 @@ impl From<Level> for LevelFilter {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+pub(super) struct Sonarr {
+    pub(super) base: Option<Box<str>>,
+    #[serde(skip_serializing_if = "Option::is_some")]
+    pub(super) key: Option<Zeroizing<Box<str>>>,
+    pub(super) url: Url,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub(super) struct Config {
     pub(super) log_level: LevelFilter,
     pub(super) interval: u64,
-    pub(super) sonarr_base_path: Option<Box<str>>,
-    #[serde(skip_serializing_if = "Option::is_some")]
-    pub(super) sonarr_key: Option<Zeroizing<Box<str>>>,
-    pub(super) sonarr_url: Url,
+    pub(super) sonarr: HashMap<u8, Sonarr>,
     pub(super) verbose: bool,
 }
 
@@ -75,48 +81,72 @@ impl Default for Config {
         Self {
             log_level: LevelFilter::Info,
             interval: 600,
-            sonarr_base_path: None,
-            sonarr_key: None,
-            sonarr_url: Url::parse("http://localhost:8989").unwrap(),
+            sonarr: HashMap::from([(1, Sonarr::default())]),
             verbose: Default::default(),
         }
     }
 }
 
+impl Default for Sonarr {
+    fn default() -> Self {
+        Self {
+            base: None,
+            key: None,
+            url: Url::parse("http://localhost:8989").unwrap(),
+        }
+    }
+}
+
 impl Config {
-    pub(crate) fn new(path: &str) -> Result<Self, ConfigError> {
+    pub(super) fn new(path: &str) -> Result<Self, ConfigError> {
         dotenv().ok();
+        //TODO: deprecate
+        rewrite_env("SCRUBARR_SONARR_URL", "SCRUBARR_SONARR_1_URL");
+        rewrite_env("SCRUBARR_SONARR_KEY", "SCRUBARR_SONARR_1_KEY");
+        rewrite_env("SCRUBARR_SONARR_BASE_PATH", "SCRUBARR_SONARR_1_BASE");
 
         config::Config::builder()
-            .add_source(Environment::with_prefix("SCRUBARR"))
+            .add_source(Environment::with_prefix("SCRUBARR").separator("_"))
             .add_source(File::with_name(path).required(false))
-            .set_default("log_level", "INFO")?
+            .set_default(
+                "log_level",
+                env::var("SCRUBARR_LOG_LEVEL").unwrap_or(String::from("INFO")),
+            )? // Hack, because _ is a separator...
             .set_default("verbose", "false")?
             .set_default("interval", "600")?
-            .set_default("sonarr_url", "http://localhost:8989")?
+            .set_default("sonarr.1.url", "http://localhost:8989")?
             .build()?
             .try_deserialize()
     }
+
     pub(super) fn merge(&mut self, mut args: Args) {
+        let sonarr = self.sonarr.entry(1).or_default();
         if args.api_key.is_some() {
-            self.sonarr_key = Some(Zeroizing::new(Box::from(args.api_key.take().unwrap())))
+            sonarr.key = Some(Zeroizing::new(Box::from(args.api_key.take().unwrap())))
         };
         if let Some(level) = args.log_level {
             self.log_level = LevelFilter::from(level);
         };
         if let Some(url) = args.url {
-            self.sonarr_url = url;
+            sonarr.url = url;
         };
         if let Some(base_path) = args.base_path {
-            self.sonarr_base_path = Some(Box::from(base_path));
+            sonarr.base = Some(Box::from(base_path));
         };
         if let Some(interval) = args.interval {
-            self.interval = interval;
+            self.interval = std::cmp::max(interval, 300);
         };
         if let Some(verbose) = args.verbose {
             self.verbose = verbose;
         };
     }
+}
+
+fn rewrite_env(original: &str, new: &str) {
+    if let Ok(value) = env::var(original) {
+        env::remove_var(original);
+        env::set_var(new, value);
+    };
 }
 
 pub(super) fn get_config_path() -> PathBuf {
@@ -133,7 +163,7 @@ pub(super) fn get_config_path() -> PathBuf {
     }
 }
 
-pub fn write_config_file(config_path: &PathBuf, config: &Config) {
+pub(super) fn write_config_file(config_path: &PathBuf, config: &Config) {
     let parent_dir = config_path.parent().unwrap();
 
     if !parent_dir.exists() {
