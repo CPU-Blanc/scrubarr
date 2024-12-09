@@ -43,6 +43,8 @@ async fn main() {
         }
     };
 
+    info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
+
     if used_cli {
         warn!("use of CLI arguments is depreciated - edit the configuration file ({}) or set environmental variables instead", config_path.to_str().unwrap());
         write_config_file(&config_path, &config);
