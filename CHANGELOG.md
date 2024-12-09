@@ -10,6 +10,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.4.0-beta.1]
 ### Removed
 - `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options and CLI arguments
 
@@ -71,6 +72,7 @@ env var. For Docker builds, this will be `/config/settings.json`
 Initial release
 
 [Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.1...HEAD
+[0.4.0-beta.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.1...v0.4.0-beta.1
 [0.3.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.0...v0.2.1
