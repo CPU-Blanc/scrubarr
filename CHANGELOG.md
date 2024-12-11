@@ -10,13 +10,13 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.4.0]
 ### Removed
 - `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options and CLI arguments
 
 ### Deprecated
 - All CLI arguments - Use the configuration file or environmental vars in future. Passed CLI arguments (excluding the API key) will 
   be automatically added into a newly generated configuration file on first start up for this minor version
-
 
 ### Added
 - Configuration file support - This will default to the XDG specification location for the host OS, or can be overridden with the `X_SCRUBARR_CONFIG`
@@ -70,7 +70,8 @@ env var. For Docker builds, this will be `/config/settings.json`
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.1...v0.4.0
 [0.3.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.2.0...v0.2.1
