@@ -21,6 +21,7 @@ To run the application, you can either use the standalone binary for your system
 
 ### Running the binary
 The binary runs as a normal CLI application (there is no GUI).\
+Use `scrubarr --generate-config` to generate a settings.json file from the currently passed env vars, or if not present, a default file.\
 All settings are loaded from [env vars](#variables) or [the config file](#example-settingsjson)
 
 

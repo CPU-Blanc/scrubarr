@@ -12,6 +12,9 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 ### Removed
 - All CLI configuration arguments - Use the configuration file or environmental vars in future
 
+### Added
+- `--generate-config` CLI command - Generates a configuration file using either the current env vars, or defaults
+
 ## [0.4.0] - 2024-12-11
 ### Removed
 - `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options and CLI arguments
