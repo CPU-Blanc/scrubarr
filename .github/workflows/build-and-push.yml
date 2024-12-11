@@ -111,6 +111,7 @@ jobs:
             type=semver,pattern={{version}},value=${{ needs.check-tag.outputs.new-tag }}
             type=semver,pattern={{major}}.{{minor}},value=${{ needs.check-tag.outputs.new-tag }}
             type=semver,pattern={{major}},value=${{ needs.check-tag.outputs.new-tag }},enable=${{ !startsWith(needs.check-tag.outputs.new-tag, 'v0.') }}
+            type=raw,beta
 
       - name: set up QEMU
         uses: docker/setup-qemu-action@v3
