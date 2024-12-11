@@ -1,7 +1,7 @@
 mod config;
 mod instance;
 
-use config::{get_config_path, Config};
+use config::{get_config_path, write_config_file, Config};
 use instance::SonarrInstance;
 use log::{debug, error, info, LevelFilter};
 use log4rs::{
@@ -29,6 +29,26 @@ async fn main() {
     build_logger(config.log_level);
 
     info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
+
+    if env::args()
+        .nth(1)
+        .is_some_and(|arg| arg == "--generate-config")
+    {
+        match write_config_file(&config_path, &config) {
+            Ok(_) => {
+                info!(
+                    "configuration file generated from current settings saved to {} \
+                     (Notice: Sonarr API keys are omitted by default)",
+                    config_path.to_str().unwrap()
+                );
+                exit(0);
+            }
+            Err(e) => {
+                error!("error writing config to file - {e}");
+                exit(1);
+            }
+        };
+    };
 
     let mut clients = Vec::with_capacity(config.sonarr.len());
     for (idx, instance) in config.sonarr {
