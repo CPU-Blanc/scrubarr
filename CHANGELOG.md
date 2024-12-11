@@ -9,6 +9,8 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 -->
 
 ## [Unreleased]
+### Removed
+- All CLI configuration arguments - Use the configuration file or environmental vars in future
 
 ## [0.4.0] - 2024-12-11
 ### Removed
