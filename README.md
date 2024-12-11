@@ -5,6 +5,11 @@ Scrubarr is a lightweight app written in Rust with the sole purpose of cleaning 
 in the queue as TBA for multiple hours resulting in a long delay before import, this app helps relieve that.\
 This little project was mainly a playground to learn more about dockerising applications and automating those workflows; increases in scope are not to be expected.
 
+### Available Image Tags
+- `latest` - The latest stable release
+- `beta` - The latest build, includes pre-releases as well as stable releases - Whichever is newest
+- Semver (ie `0.2`, `0.2.1` etc)
+
 ## Features
 Scans the Sonarr queue every `INTERVAL` seconds and:
 - For any release stuck as TBA, if forces a series refresh to try and fetch the latest data and un-stuck it
