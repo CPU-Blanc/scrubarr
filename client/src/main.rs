@@ -1,11 +1,9 @@
 mod config;
 mod instance;
 
-use clap::Parser;
-use config::{get_config_path, write_config_file, Args, Config};
+use config::{get_config_path, Config};
 use instance::SonarrInstance;
-use is_empty::IsEmpty;
-use log::{debug, error, info, warn, LevelFilter};
+use log::{debug, error, info, LevelFilter};
 use log4rs::{
     append::console::ConsoleAppender,
     config::{Appender, Config as LogConfig, Root},
@@ -13,6 +11,7 @@ use log4rs::{
     filter::threshold::ThresholdFilter,
 };
 use std::{
+    env,
     process::exit,
     time::{Duration, Instant},
 };
@@ -20,35 +19,16 @@ use tokio::time::sleep;
 
 #[tokio::main]
 async fn main() {
-    let args = Args::parse();
-    let used_cli = !args.is_empty();
     let config_path = get_config_path();
+    let config = Config::new(config_path.to_str().unwrap()).unwrap_or_else(|e| {
+        build_logger(LevelFilter::Info);
+        error!("error loading config - {e}");
+        exit(1);
+    });
 
-    let config = match Config::new(config_path.to_str().unwrap()) {
-        Ok(mut loaded) => {
-            if used_cli {
-                loaded.merge(args);
-            };
-            build_logger(loaded.log_level);
-            loaded
-        }
-        Err(e) => {
-            let mut new_config = Config::default();
-            if used_cli {
-                new_config.merge(args);
-            };
-            build_logger(new_config.log_level);
-            error!("error loading config - {e}");
-            new_config
-        }
-    };
+    build_logger(config.log_level);
 
     info!("Scrubarr v{}", env!("CARGO_PKG_VERSION"));
-
-    if used_cli {
-        warn!("use of CLI arguments is depreciated - edit the configuration file ({}) or set environmental variables instead", config_path.to_str().unwrap());
-        write_config_file(&config_path, &config);
-    };
 
     let mut clients = Vec::with_capacity(config.sonarr.len());
     for (idx, instance) in config.sonarr {
