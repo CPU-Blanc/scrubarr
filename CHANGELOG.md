@@ -10,7 +10,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
-## [0.4.0]
+## [0.4.0] - 2024-12-11
 ### Removed
 - `SCRUBARR_SONARR_PORT` & `SCRUBARR_OMIT_PORT` options and CLI arguments
 
