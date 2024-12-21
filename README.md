@@ -7,7 +7,7 @@ This little project was mainly a playground to learn more about dockerising appl
 
 ### Available Image Tags
 - `latest` - The latest stable release
-- `beta` - The latest build, includes pre-releases as well as stable releases - Whichever is newest
+- `dev` - The latest build, includes pre-releases as well as stable releases - Whichever is newest
 - Semver (ie `0.2`, `0.2.1` etc)
 
 ## Features
