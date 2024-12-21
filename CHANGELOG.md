@@ -14,6 +14,7 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ### Added
 - `--generate-config` CLI command - Generates a configuration file using either the current env vars, or defaults
+- Removal of queued items if a higher scored episode is already in the queue
 
 ## [0.4.0] - 2024-12-11
 ### Removed
