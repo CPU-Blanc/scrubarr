@@ -9,7 +9,7 @@ on:
   pull_request:
     types:
       - opened
-      - reopened
+      - synchronize
     branches:
       - main
     paths:
@@ -31,6 +31,7 @@ jobs:
     outputs:
       is-new: ${{ steps.check-new.outputs.is_new_version }}
       new-tag: ${{ steps.check-new.outputs.version }}
+      is-prerelease: ${{ steps.check-new.outputs.is_prerelease }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
@@ -48,13 +49,24 @@ jobs:
 
   create-release:
     needs: check-tag
-    if: ${{ needs.check-tag.outputs.is-new == 'true' }}
+    if: ${{ needs.check-tag.outputs.is-new == 'true' && !( startsWith(github.head_ref, 'release/') && needs.check-tag.outputs.is-prerelease == 'false' ) }}
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: '0'
 
-      - name: tag head
+      - name: tag head (PR)
+        if: startsWith(github.head_ref, 'release/')
+        shell: bash
+        run: |
+          git tag ${{ needs.check-tag.outputs.new-tag }} ${{ github.event.pull_request.head.sha }}
+          git push origin --tags
+
+      - name: tag head (Main)
+        if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
           git tag ${{ needs.check-tag.outputs.new-tag }}
