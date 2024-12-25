@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - client/Cargo.toml
+      - Cargo.toml
   pull_request:
     types:
       - opened
@@ -13,7 +13,7 @@ on:
     branches:
       - main
     paths:
-      - client/Cargo.toml
+      - Cargo.toml
   workflow_dispatch:
 
 env:
@@ -44,7 +44,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: 'cargo'
-          cargo_package_location: './client/'
+          cargo_package_location: './'
           fail_on_same_version: 'false'
 
   create-release:

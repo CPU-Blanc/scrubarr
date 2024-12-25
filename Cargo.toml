@@ -1,15 +1,17 @@
-[workspace]
+[package]
+name = "scrubarr"
+version = "0.5.0"
+edition = "2021"
 
-default-members = ["client"]
-members = [
-    "client",
-    "sonarr_api"
-]
-resolver = "2"
-
-[workspace.dependencies]
+[dependencies]
+config = "0.14"
+directories-next = "2"
+dotenv = "0.15"
 log = "0.4"
-serde = { version = "1", features = ["derive"] }
-sonarr_api = {path = "sonarr_api" }
+log4rs = "1"
 tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sonarr_api = { git = "https://github.com/CPU-Blanc/sonarr-api/", tag = "v0.2.0"}
+zeroize = {version = "1", features = ["serde"]}
 url = { version = "2", features = ["serde"] }

@@ -1667,6 +1667,7 @@ dependencies = [
 [[package]]
 name = "sonarr_api"
 version = "0.2.0"
+source = "git+https://github.com/CPU-Blanc/sonarr-api/?tag=v0.2.0#fadb53968c3894704b287615b663978f0f493bde"
 dependencies = [
  "convert_case",
  "log",
