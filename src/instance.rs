@@ -58,21 +58,26 @@ impl SonarrInstance {
             };
 
             for statuses in item.status_messages.unwrap_or_default() {
+                if statuses
+                    .title
+                    .unwrap_or_default()
+                    .contains("Episode has a TBA title and recently aired")
+                {
+                    if tbas.insert(item.series_id) {
+                        debug!(
+                            "[sonarr-{idx}]: found TBA in series [{id}] '{name}'",
+                            id = item.series_id.unwrap_or_default(),
+                            name = item.series.unwrap().title.unwrap_or_default(),
+                            idx = self.idx,
+                        );
+                    };
+                    continue 'item;
+                };
+
                 for message in statuses.messages {
                     if message.contains("Not a Custom Format upgrade for existing episode file(s)")
                     {
                         to_delete.insert(item.id);
-                        continue 'item;
-                    };
-                    if message.contains("Episode has a TBA title and recently aired") {
-                        if tbas.insert(item.series_id) {
-                            debug!(
-                                "[sonarr-{idx}]: found TBA in series [{id}] '{name}'",
-                                id = item.series_id.unwrap_or_default(),
-                                name = item.series.unwrap().title.unwrap_or_default(),
-                                idx = self.idx,
-                            );
-                        };
                         continue 'item;
                     };
                 }
