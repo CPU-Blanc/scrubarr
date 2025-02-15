@@ -3,7 +3,7 @@ WORKDIR /usr/src/scrubarr
 COPY . .
 RUN cargo add openssl --features vendored
 RUN apk add make musl-dev perl
-RUN cargo install --path ./client
+RUN cargo install --path .
 
 FROM alpine
 RUN apk update && rm -rf /var/cache/apk/*
