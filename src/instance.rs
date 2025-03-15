@@ -58,10 +58,9 @@ impl SonarrInstance {
             };
 
             for statuses in item.status_messages.unwrap_or_default() {
-                if statuses
-                    .title
-                    .unwrap_or_default()
-                    .contains("Episode has a TBA title and recently aired")
+                let title = statuses.title.unwrap_or_default();
+
+                if title.contains("Episode has a TBA title and recently aired")
                 {
                     if tbas.insert(item.series_id) {
                         debug!(
@@ -73,6 +72,11 @@ impl SonarrInstance {
                     };
                     continue 'item;
                 };
+
+                if title.contains("Not an upgrade for existing episode file(s)") {
+                    to_delete.insert(item.id);
+                    continue 'item;
+                }
 
                 for message in statuses.messages {
                     if message.contains("Not a Custom Format upgrade for existing episode file(s)")
