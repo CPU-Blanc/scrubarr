@@ -10,6 +10,10 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.5.2] - 2025-03-15
+### Fixed
+- Removal of queued items that are of lower quality than the file on disk
+
 ## [0.5.1] - 2025-02-15
 ### Fixed
 - TBA queue detection
@@ -82,7 +86,8 @@ env var. For Docker builds, this will be `/config/settings.json`
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/CPU-Blanc/scrubarr/compare/v0.3.1...v0.4.0
