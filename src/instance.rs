@@ -132,8 +132,7 @@ impl SonarrInstance {
     async fn get_queue(&self) -> Box<[QueueResource]> {
         let query = GetQueueQuery::builder()
             .page_size(1000)
-            .include_series(true)
-            .status(QueueStatus::Completed);
+            .include_series(true);
 
         match self.sonarr.get_queue(query).await {
             Err(e) => {
