@@ -10,6 +10,13 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.5.4] - 2025-11-06
+### Changed
+- Items in the queue can be superseded by others without needing to have completed downloading
+
+### Chore
+- Updated dependencies
+
 ## [0.5.3] - 2025-03-19
 ### Fixed
 - TBA queue detection & depreciated downloads detection. Sonarr had reverted some changes upstream that broke these once again
@@ -90,7 +97,8 @@ env var. For Docker builds, this will be `/config/settings.json`
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.3...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.4...HEAD
+[0.5.4]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.2...v0.5.3
 [0.5.2]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.0...v0.5.1
