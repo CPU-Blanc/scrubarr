@@ -1,0 +1,25 @@
+version: 2
+updates:
+  - package-ecosystem: "cargo"
+    directory: "/"
+    labels:
+      - "type: dependencies"
+      - "area: cargo"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    labels:
+      - "type: dependencies"
+      - "area: docker"
+    schedule:
+      interval: "monthly"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - "type: dependencies"
+      - "area: github actions"
+    schedule:
+      interval: "monthly"
