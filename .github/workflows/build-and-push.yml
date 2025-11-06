@@ -34,7 +34,7 @@ jobs:
       is-prerelease: ${{ steps.check-new.outputs.is_prerelease }}
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: '0'
 
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: '0'
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: build and upload binaries
         uses: taiki-e/upload-rust-binary-action@v1
