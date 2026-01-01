@@ -1,4 +1,4 @@
-FROM rust:1.91.1-alpine AS builder
+FROM rust:1.92.0-alpine AS builder
 WORKDIR /usr/src/scrubarr
 COPY . .
 RUN cargo add openssl --features vendored
