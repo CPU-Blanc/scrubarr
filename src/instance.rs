@@ -1,5 +1,5 @@
 use log::{debug, error, info, trace};
-use sonarr_api::queue::{DeleteQueueQuery, GetQueueQuery, QueueResource, QueueStatus};
+use sonarr_api::queue::{DeleteQueueQuery, GetQueueQuery, QueueResource};
 use sonarr_api::Sonarr;
 use std::{
     cmp::Ordering,
