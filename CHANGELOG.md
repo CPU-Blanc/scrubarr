@@ -10,8 +10,11 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.5.6] - 2026-02-10
+Maintenance release
+
 ## [0.5.5] - 2026-02-04
-- Maintenance release
+Maintenance release
 
 ## [0.5.4] - 2025-11-06
 ### Changed
@@ -100,7 +103,8 @@ env var. For Docker builds, this will be `/config/settings.json`
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.5...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.6...HEAD
+[0.5.6]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.5...v0.5.6
 [0.5.5]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.4...v0.5.5
 [0.5.4]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.3...v0.5.4
 [0.5.3]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.2...v0.5.3
