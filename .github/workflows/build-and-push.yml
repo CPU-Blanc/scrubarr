@@ -100,7 +100,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: build and upload binaries
-        uses: taiki-e/upload-rust-binary-action@f391289bcff6a7f36b6301c0a74199657bbb4561 # v1
+        uses: taiki-e/upload-rust-binary-action@0e34102c043ded9f2ca39f7af5cd99a540c61aff # v1
         with:
           bin: scrubarr
           target: ${{ matrix.target }}
