@@ -40,7 +40,7 @@ jobs:
 
       - name: check current tag
         id: check-new
-        uses: digicatapult/check-version@d41686b2aa566f7d7770261ce7a07cb5322b0aeb # v1
+        uses: digicatapult/check-version@c858cfa831c239a0a446f1289fbfcc1b0cab56d1 # v1.5.51
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           package_manager: 'cargo'
