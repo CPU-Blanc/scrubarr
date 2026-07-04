@@ -41,7 +41,7 @@ services:
       - SCRUBARR_SONARR_1_BASE=sonarr #this will result in requests to http://yourdomain.net/sonarr.
       - SCRUBARR_SONARR_2_KEY=api_key2 #for multiple instances
       - SCRUBARR_SONARR_2_URL=http://anotherdomain.com #etc
-      - SCRUBARR_LOG_LEVEL=debug #will print debug logs - Can be trace, debug, info, warn, or error. Default: info 
+      - SCRUBARR_LOG_LEVEL=DEBUG #will print debug logs - Can be trace, debug, info, warn, or error. Default: info 
       - SCRUBARR_INTERVAL=1200 #check the queue once every 20 minutes. Default: 600 (10 minutes)
     restart: unless-stopped
 
@@ -63,7 +63,7 @@ docker create \
 | `SCRUBARR_SONARR_[int]_KEY`  | `sonarr.[int].key`  | String                                | **Required**            |
 | `SCRUBARR_SONARR_[int]_URL`  | `sonarr.[int].url`  | String                                | `http://localhost:8989` |
 | `SCRUBARR_SONARR_[int]_BASE` | `sonarr.[int].base` | String                                | null                    |
-| `SCRUBARR_LOG_LEVEL`         | `log_level`         | `trace`,`debug`,`info`,`warn`,`error` | `info`                  |
+| `SCRUBARR_LOG_LEVEL`         | `log_level`         | `TRACE`,`DEBUG`,`INFO`,`WARN`,`ERROR` | `INFO`                  |
 | `SCRUBARR_INTERVAL`          | `interval`          | Int (in seconds: minimum 300)         | `600`                   |
 | `SCRUBARR_VERBOSE`           | `verbose`           | Bool                                  | `false`                 |
 

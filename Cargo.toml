@@ -1,11 +1,11 @@
 [package]
 name = "scrubarr"
-version = "0.5.8"
+version = "0.5.9"
 edition = "2021"
 license = "AGPL-3.0-or-later"
 
 [dependencies]
-config = "0.14"
+config = "0.15"
 directories-next = "2"
 dotenv = "0.15"
 log = "0.4"

@@ -10,6 +10,13 @@ Note: In this file, do not use the hard wrap in the middle of a sentence for com
 
 ## [Unreleased]
 
+## [0.5.9] - 2026-07-04
+### Breaking
+- Config parsing has been updated. The log levels are now **case-sensitive**. Please ensure `SCRUBARR_LOG_LEVEL` values are in `CONSTANT_CASE`
+
+### Security
+- Patched a CVE in a dependency
+
 ## [0.5.8] - 2026-05-07
 ### Security
 - Patched a CVE in a dependency
@@ -111,7 +118,8 @@ env var. For Docker builds, this will be `/config/settings.json`
 
 Initial release
 
-[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.8...HEAD
+[Unreleased]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.9...HEAD
+[0.5.9]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.8...v0.5.9
 [0.5.8]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.7...v0.5.8
 [0.5.7]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.6...v0.5.7
 [0.5.6]: https://github.com/CPU-Blanc/scrubarr/compare/v0.5.5...v0.5.6
